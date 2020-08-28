@@ -1,0 +1,64 @@
+﻿@model IEnumerable<CentralParking.Models.locador>
+
+@{
+    ViewBag.Title = "Lista de Usuários";
+}
+
+    <br />
+    <br />
+    <br />
+    <br />
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID_Dono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome_Dono)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.senha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Tipo)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.ID_Dono)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Nome_Dono)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.usuario)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.senha)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Tipo)
+    </td>
+
+    <td>
+        @Html.ActionLink("Editar Perfil", "Editar", new { id = item.CPF })
+        @Html.ActionLink("Detalhes do Perfil", "Perfil", new { id = item.CPF })
+        @Html.ActionLink("Deletar", "Deletar", new { id = item.CPF })
+    </td>
+</tr>
+}
+
+</table>

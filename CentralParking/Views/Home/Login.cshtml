@@ -1,0 +1,122 @@
+﻿@model CentralParking.Models.locador
+@{
+    ViewBag.Title = "Login - Central Parking";
+    Layout = null;
+}
+
+<link rel="icon" type="image/png" href="~/Content/imagesLogin/icons/favicon.ico" />
+<link rel="stylesheet" type="text/css" href="~/Content/vendorLogin/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/fontsLogin/font-awesome-4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/vendorLogin/animate/animate.css">
+<link rel="stylesheet" type="text/css" href="~/Content/vendorLogin/css-hamburgers/hamburgers.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/vendorLogin/select2/select2.min.css">
+<link rel="stylesheet" type="text/css" href="~/Content/cssLogin/util.css">
+<link rel="stylesheet" type="text/css" href="~/Content/cssLogin/main.css">
+
+<link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="~/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+<link rel="stylesheet" href="~/Content/device-mockups/device-mockups.min.css">
+<link href="~/Content/css/new-age.min.css" rel="stylesheet">
+
+
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container" id="page-top">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Central Parking</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    @Html.ActionLink("APP", "Index", "Home", new { area = "" }, new { @class = "nav-link js-scroll-trigger" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Sobre", "Index", "Home", new { area = "" }, new { @class = "nav-link js-scroll-trigger" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Cadastro", "Cadastro", "Locadors", new { area = "" }, new { @class = "nav-link js-scroll-trigger" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "nav-link js-scroll-trigger" })
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Contato", "Index", "Home", new { area = "" }, new { @class = "nav-link js-scroll-trigger" })
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@using (Html.BeginForm("Login", "Home", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+{
+    @Html.AntiForgeryToken();
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+
+                <span class="login100-form-title">
+                    Login - Usuário
+                </span>
+
+
+                <div class="wrap-input100 validate-input">
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.email, new {htmlAttributes = new { @class = "input100", placeholder = "E-mail", autofocus = true }})
+
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </span>
+                </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <div class="col-md-7">
+                            @Html.EditorFor(model => model.senha, new { htmlAttributes = new { @class = "input100", placeholder = "Senha" }})
+
+                            @Html.ValidationMessageFor(model => model.senha, "", new { @class = "text-danger" })
+                        </div>
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </span>
+                    </div>
+
+                    <div class="container-login100-form-btn col-md-7">
+                        <input type="submit" value="Conectar" class="login100-form-btn" />
+                    </div>
+
+                    <div class="text-center p-t-136">
+                        <a class="txt2" href="~/Locadors/Cadastro">
+                            Crie sua conta
+                        </a>
+                    </div>
+
+                </div>
+        </div>
+    </div>
+
+    <script src="~/Content/vendorLogin/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Content/vendorLogin/bootstrap/js/popper.js"></script>
+    <script src="~/Content/vendorLogin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/vendorLogin/select2/select2.min.js"></script>
+    <script src="~/Content/vendorLogin/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <script src="~/Content/jsLogin/main.js"></script>
+
+
+}

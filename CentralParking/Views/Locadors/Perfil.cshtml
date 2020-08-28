@@ -1,0 +1,54 @@
+﻿@model CentralParking.Models.locador
+
+@{
+    ViewBag.Title = "Perfil";
+}
+
+<br />
+<br />
+<br />
+
+<div style="align-items:center">
+    <h4>Perfil - Locador</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome_Dono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome_Dono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.usuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.usuario)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.senha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.senha)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar Perfil", "Editar", new { id = Model.CPF })
+    
+</p>

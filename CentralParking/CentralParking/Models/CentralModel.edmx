@@ -1,0 +1,367 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CentralParkingModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Aluguel">
+          <Key>
+            <PropertyRef Name="ID Aluguel" />
+          </Key>
+          <Property Name="ID Aluguel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID Locatario" Type="int" />
+          <Property Name="ID Vagas" Type="int" />
+          <Property Name="Data Início" Type="datetime" />
+          <Property Name="Data Fim" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Locador">
+          <Key>
+            <PropertyRef Name="CPF" />
+          </Key>
+          <Property Name="ID Dono" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome Dono" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CPF" Type="decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Tipo" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Locatario">
+          <Key>
+            <PropertyRef Name="ID Locatario" />
+          </Key>
+          <Property Name="ID Locatario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID Veiculo" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="senha" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="CPF" Type="decimal" Precision="11" Scale="0" />
+          <Property Name="CNPJ" Type="decimal" Precision="11" Scale="0" />
+        </EntityType>
+        <EntityType Name="Vagas">
+          <Key>
+            <PropertyRef Name="ID Vagas" />
+          </Key>
+          <Property Name="ID Vagas" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CPF" Type="decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="Cidade" Type="varchar" MaxLength="35" Nullable="false" />
+          <Property Name="Bairro" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="Rua" Type="varchar" MaxLength="55" Nullable="false" />
+          <Property Name="Numero" Type="decimal" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="CEP" Type="decimal" Precision="8" Scale="0" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="ID Veiculo" />
+          </Key>
+          <Property Name="ID Veiculo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Modelo" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Placa" Type="char" MaxLength="7" Nullable="false" />
+          <Property Name="Tamanho Veiculo" Type="char" MaxLength="1" />
+        </EntityType>
+        <Association Name="FK_Locador_CPF">
+          <End Role="Locador" Type="Self.Locador" Multiplicity="1" />
+          <End Role="Vagas" Type="Self.Vagas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locador">
+              <PropertyRef Name="CPF" />
+            </Principal>
+            <Dependent Role="Vagas">
+              <PropertyRef Name="CPF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locatario_ID_Locatario">
+          <End Role="Locatario" Type="Self.Locatario" Multiplicity="0..1" />
+          <End Role="Aluguel" Type="Self.Aluguel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locatario">
+              <PropertyRef Name="ID Locatario" />
+            </Principal>
+            <Dependent Role="Aluguel">
+              <PropertyRef Name="ID Locatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vagas_ID_Vagas">
+          <End Role="Vagas" Type="Self.Vagas" Multiplicity="0..1" />
+          <End Role="Aluguel" Type="Self.Aluguel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vagas">
+              <PropertyRef Name="ID Vagas" />
+            </Principal>
+            <Dependent Role="Aluguel">
+              <PropertyRef Name="ID Vagas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_ID_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="0..1" />
+          <End Role="Locatario" Type="Self.Locatario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="ID Veiculo" />
+            </Principal>
+            <Dependent Role="Locatario">
+              <PropertyRef Name="ID Veiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CentralParkingModelStoreContainer">
+          <EntitySet Name="Aluguel" EntityType="Self.Aluguel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locador" EntityType="Self.Locador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Locatario" EntityType="Self.Locatario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vagas" EntityType="Self.Vagas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Locador_CPF" Association="Self.FK_Locador_CPF">
+            <End Role="Locador" EntitySet="Locador" />
+            <End Role="Vagas" EntitySet="Vagas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locatario_ID_Locatario" Association="Self.FK_Locatario_ID_Locatario">
+            <End Role="Locatario" EntitySet="Locatario" />
+            <End Role="Aluguel" EntitySet="Aluguel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vagas_ID_Vagas" Association="Self.FK_Vagas_ID_Vagas">
+            <End Role="Vagas" EntitySet="Vagas" />
+            <End Role="Aluguel" EntitySet="Aluguel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_ID_Veiculo" Association="Self.FK_Veiculo_ID_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Locatario" EntitySet="Locatario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CentralParkingModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Aluguel">
+          <Key>
+            <PropertyRef Name="ID_Aluguel" />
+          </Key>
+          <Property Name="ID_Aluguel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Locatario" Type="Int32" />
+          <Property Name="ID_Vagas" Type="Int32" />
+          <Property Name="Data_Início" Type="DateTime" Precision="3" />
+          <Property Name="Data_Fim" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Locatario" Relationship="Self.FK_Locatario_ID_Locatario" FromRole="Aluguel" ToRole="Locatario" />
+          <NavigationProperty Name="Vagas" Relationship="Self.FK_Vagas_ID_Vagas" FromRole="Aluguel" ToRole="Vagas" />
+        </EntityType>
+        <EntityType Name="Locador">
+          <Key>
+            <PropertyRef Name="CPF" />
+          </Key>
+          <Property Name="ID_Dono" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome_Dono" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Vagas" Relationship="Self.FK_Locador_CPF" FromRole="Locador" ToRole="Vagas" />
+        </EntityType>
+        <EntityType Name="Locatario">
+          <Key>
+            <PropertyRef Name="ID_Locatario" />
+          </Key>
+          <Property Name="ID_Locatario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID_Veiculo" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="usuario" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="senha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CPF" Type="Decimal" Precision="11" Scale="0" />
+          <Property Name="CNPJ" Type="Decimal" Precision="11" Scale="0" />
+          <NavigationProperty Name="Aluguel" Relationship="Self.FK_Locatario_ID_Locatario" FromRole="Locatario" ToRole="Aluguel" />
+          <NavigationProperty Name="Veiculo" Relationship="Self.FK_Veiculo_ID_Veiculo" FromRole="Locatario" ToRole="Veiculo" />
+        </EntityType>
+        <EntityType Name="Vagas">
+          <Key>
+            <PropertyRef Name="ID_Vagas" />
+          </Key>
+          <Property Name="ID_Vagas" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CPF" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Cidade" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Bairro" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rua" Type="String" MaxLength="55" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Numero" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="CEP" Type="Decimal" Precision="8" Scale="0" Nullable="false" />
+          <NavigationProperty Name="Aluguel" Relationship="Self.FK_Vagas_ID_Vagas" FromRole="Vagas" ToRole="Aluguel" />
+          <NavigationProperty Name="Locador" Relationship="Self.FK_Locador_CPF" FromRole="Vagas" ToRole="Locador" />
+        </EntityType>
+        <EntityType Name="Veiculo">
+          <Key>
+            <PropertyRef Name="ID_Veiculo" />
+          </Key>
+          <Property Name="ID_Veiculo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Modelo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Placa" Type="String" MaxLength="7" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="Tamanho_Veiculo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Locatario" Relationship="Self.FK_Veiculo_ID_Veiculo" FromRole="Veiculo" ToRole="Locatario" />
+        </EntityType>
+        <Association Name="FK_Locatario_ID_Locatario">
+          <End Role="Locatario" Type="Self.Locatario" Multiplicity="0..1" />
+          <End Role="Aluguel" Type="Self.Aluguel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locatario">
+              <PropertyRef Name="ID_Locatario" />
+            </Principal>
+            <Dependent Role="Aluguel">
+              <PropertyRef Name="ID_Locatario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Vagas_ID_Vagas">
+          <End Role="Vagas" Type="Self.Vagas" Multiplicity="0..1" />
+          <End Role="Aluguel" Type="Self.Aluguel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vagas">
+              <PropertyRef Name="ID_Vagas" />
+            </Principal>
+            <Dependent Role="Aluguel">
+              <PropertyRef Name="ID_Vagas" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Locador_CPF">
+          <End Role="Locador" Type="Self.Locador" Multiplicity="1" />
+          <End Role="Vagas" Type="Self.Vagas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Locador">
+              <PropertyRef Name="CPF" />
+            </Principal>
+            <Dependent Role="Vagas">
+              <PropertyRef Name="CPF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Veiculo_ID_Veiculo">
+          <End Role="Veiculo" Type="Self.Veiculo" Multiplicity="0..1" />
+          <End Role="Locatario" Type="Self.Locatario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Veiculo">
+              <PropertyRef Name="ID_Veiculo" />
+            </Principal>
+            <Dependent Role="Locatario">
+              <PropertyRef Name="ID_Veiculo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CentralParkingEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Aluguel" EntityType="Self.Aluguel" />
+          <EntitySet Name="Locador" EntityType="Self.Locador" />
+          <EntitySet Name="Locatario" EntityType="Self.Locatario" />
+          <EntitySet Name="Vagas" EntityType="Self.Vagas" />
+          <EntitySet Name="Veiculo" EntityType="Self.Veiculo" />
+          <AssociationSet Name="FK_Locatario_ID_Locatario" Association="Self.FK_Locatario_ID_Locatario">
+            <End Role="Locatario" EntitySet="Locatario" />
+            <End Role="Aluguel" EntitySet="Aluguel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Vagas_ID_Vagas" Association="Self.FK_Vagas_ID_Vagas">
+            <End Role="Vagas" EntitySet="Vagas" />
+            <End Role="Aluguel" EntitySet="Aluguel" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Locador_CPF" Association="Self.FK_Locador_CPF">
+            <End Role="Locador" EntitySet="Locador" />
+            <End Role="Vagas" EntitySet="Vagas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Veiculo_ID_Veiculo" Association="Self.FK_Veiculo_ID_Veiculo">
+            <End Role="Veiculo" EntitySet="Veiculo" />
+            <End Role="Locatario" EntitySet="Locatario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CentralParkingModelStoreContainer" CdmEntityContainer="CentralParkingEntities">
+          <EntitySetMapping Name="Aluguel">
+            <EntityTypeMapping TypeName="CentralParkingModel.Aluguel">
+              <MappingFragment StoreEntitySet="Aluguel">
+                <ScalarProperty Name="ID_Aluguel" ColumnName="ID Aluguel" />
+                <ScalarProperty Name="ID_Locatario" ColumnName="ID Locatario" />
+                <ScalarProperty Name="ID_Vagas" ColumnName="ID Vagas" />
+                <ScalarProperty Name="Data_Início" ColumnName="Data Início" />
+                <ScalarProperty Name="Data_Fim" ColumnName="Data Fim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locador">
+            <EntityTypeMapping TypeName="CentralParkingModel.Locador">
+              <MappingFragment StoreEntitySet="Locador">
+                <ScalarProperty Name="ID_Dono" ColumnName="ID Dono" />
+                <ScalarProperty Name="Nome_Dono" ColumnName="Nome Dono" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locatario">
+            <EntityTypeMapping TypeName="CentralParkingModel.Locatario">
+              <MappingFragment StoreEntitySet="Locatario">
+                <ScalarProperty Name="ID_Locatario" ColumnName="ID Locatario" />
+                <ScalarProperty Name="ID_Veiculo" ColumnName="ID Veiculo" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="senha" ColumnName="senha" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vagas">
+            <EntityTypeMapping TypeName="CentralParkingModel.Vagas">
+              <MappingFragment StoreEntitySet="Vagas">
+                <ScalarProperty Name="ID_Vagas" ColumnName="ID Vagas" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Rua" ColumnName="Rua" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Veiculo">
+            <EntityTypeMapping TypeName="CentralParkingModel.Veiculo">
+              <MappingFragment StoreEntitySet="Veiculo">
+                <ScalarProperty Name="ID_Veiculo" ColumnName="ID Veiculo" />
+                <ScalarProperty Name="Modelo" ColumnName="Modelo" />
+                <ScalarProperty Name="Placa" ColumnName="Placa" />
+                <ScalarProperty Name="Tamanho_Veiculo" ColumnName="Tamanho Veiculo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

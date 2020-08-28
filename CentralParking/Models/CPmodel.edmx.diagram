@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1c995cc547474fa08a6e7dc8efb6bc6d" Name="Diagram1" ZoomLevel="80">
+        <EntityTypeShape EntityType="CentralParkingModel.locador" PointX="9.25" PointY="1.25" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CentralParkingModel.Locatario" Width="1.5" PointX="3.125" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CentralParkingModel.Vaga" Width="1.5" PointX="7.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CentralParkingModel.Veiculo" Width="1.5" PointX="1" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CentralParkingModel.Aluguel" Width="1.5" PointX="5.125" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="CentralParkingModel.FK_Locador_CPF" />
+        <AssociationConnector Association="CentralParkingModel.FK_Locatario_ID_Locatario" ManuallyRouted="false" />
+        <AssociationConnector Association="CentralParkingModel.FK_Veiculo_ID_Veiculo" ManuallyRouted="false" />
+        <AssociationConnector Association="CentralParkingModel.FK_Vagas_ID_Vagas" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
